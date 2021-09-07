@@ -1,0 +1,3 @@
+/mnt/c/app5/TI/TP1/modele/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/app5/TI/TP1/modele/build/CMakeFiles/edit_cache.dir
+/mnt/c/app5/TI/TP1/modele/build/CMakeFiles/lectureImage.dir
