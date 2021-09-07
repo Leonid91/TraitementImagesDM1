@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/mnt/c/app5/TI/TP1/modele/main.cpp
+/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/main.cpp
 opencv2/opencv.hpp
 -
 stdio.h

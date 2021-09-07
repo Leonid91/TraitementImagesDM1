@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c/app5/TI/TP1/modele/main.cpp" "/mnt/c/app5/TI/TP1/modele/build/CMakeFiles/lectureImage.dir/main.cpp.o"
+  "/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/main.cpp" "/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/build/CMakeFiles/lectureImage.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
-  "PROJECT_DIRECTORY=\"/mnt/c/app5/TI/TP1/modele\""
+  "PROJECT_DIRECTORY=\"/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele\""
   )
 
 # The include file search paths:

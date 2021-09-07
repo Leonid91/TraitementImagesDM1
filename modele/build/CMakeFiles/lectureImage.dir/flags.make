@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =  -fopenmp  
 
-CXX_DEFINES = -DPROJECT_DIRECTORY=\"/mnt/c/app5/TI/TP1/modele\"
+CXX_DEFINES = -DPROJECT_DIRECTORY=\"/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele\"
 
-CXX_INCLUDES = -I/mnt/c/app5/TI/TP1/modele/build -I/mnt/c/app5/TI/TP1/modele -isystem /usr/include/opencv4 
+CXX_INCLUDES = -I/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/build -I/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele -isystem /usr/include/opencv4 
 

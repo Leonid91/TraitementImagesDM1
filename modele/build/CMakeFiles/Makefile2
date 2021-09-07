@@ -44,10 +44,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/c/app5/TI/TP1/modele
+CMAKE_SOURCE_DIR = /mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/c/app5/TI/TP1/modele/build
+CMAKE_BINARY_DIR = /mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,14 +74,14 @@ clean: CMakeFiles/lectureImage.dir/clean
 CMakeFiles/lectureImage.dir/all:
 	$(MAKE) -f CMakeFiles/lectureImage.dir/build.make CMakeFiles/lectureImage.dir/depend
 	$(MAKE) -f CMakeFiles/lectureImage.dir/build.make CMakeFiles/lectureImage.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/app5/TI/TP1/modele/build/CMakeFiles --progress-num=1,2 "Built target lectureImage"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/build/CMakeFiles --progress-num=1,2 "Built target lectureImage"
 .PHONY : CMakeFiles/lectureImage.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/lectureImage.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/app5/TI/TP1/modele/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/lectureImage.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/app5/TI/TP1/modele/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/build/CMakeFiles 0
 .PHONY : CMakeFiles/lectureImage.dir/rule
 
 # Convenience name for target.
