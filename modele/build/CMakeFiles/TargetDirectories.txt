@@ -1,0 +1,3 @@
+/mnt/c/Custom/src/TI_DM/TraitementImagesDM1/modele/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Custom/src/TI_DM/TraitementImagesDM1/modele/build/CMakeFiles/edit_cache.dir
+/mnt/c/Custom/src/TI_DM/TraitementImagesDM1/modele/build/CMakeFiles/lectureImage.dir
