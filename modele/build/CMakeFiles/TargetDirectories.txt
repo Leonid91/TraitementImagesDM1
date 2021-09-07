@@ -1,3 +1,0 @@
-/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/aines/source/repos/TraitementImagesDM1/modele/build/CMakeFiles/lectureImage.dir
