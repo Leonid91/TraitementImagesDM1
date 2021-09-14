@@ -64,7 +64,10 @@ int main(int argc, char** argv){
 			frag_eroded_cpt++;
 
 			Point2f centre(listOfPositionsX[i], listOfPositionsY[i]);
-			Mat fragRotated = getRotationMatrix2D(centre, listOfRotations[i], 1.0);			
+			Mat fragRotated = getRotationMatrix2D(centre, listOfRotations[i], 1.0);
+
+			//Exporter en png pour tester la rotation
+			//Ensuite il faut appliquer la translation à l'image et l'insérer dans la matrice mère		
 		}
 	}
 
