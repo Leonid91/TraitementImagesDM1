@@ -1,4 +1,5 @@
 #include <opencv2/opencv.hpp>
+#include <opencv2/core/affine.hpp>
 #include <stdio.h>
 #include <iostream>
 #include <sstream>
@@ -48,11 +49,27 @@ int main(int argc, char** argv){
 
 	//Vérification des vecteurs
 	for(int i=0; i<listOfRotations.size();i++){
-		std::cout << "[" << listOfPositionsX[i] << ", " << listOfPositionsY[i] << "], " << listOfRotations[i] << std::endl;
+		//A commenter pour ne pas polluer l'affichage
+		//std::cout << "[" << listOfPositionsX[i] << ", " << listOfPositionsY[i] << "], " << listOfRotations[i] << std::endl;
+	}
+
+	string ext = ".png";
+
+	//Traitement
+	int frag_eroded_cpt = 0; //Nombre de frag d'images traités
+	// for(int i=0; i<listOfRotations.size();i++){
+	for(int i=0; i<3;i++){ //On test juste avec quelques fragments
+		if(listOfPositionsX[i] != -1){
+			Mat frag = imread("../../frag_eroded/frag_eroded_" + frag_eroded_cpt + ext, IMREAD_COLOR);
+			frag_eroded_cpt++;
+
+			Point2f centre(listOfPositionsX[i], listOfPositionsY[i]);
+			Mat fragRotated = getRotationMatrix2D(centre, listOfRotations[i], 1.0);			
+		}
 	}
 
 	fragmentFile.close();
-	
+
 	// Mat imageIn = imread( argv[1], IMREAD_GRAYSCALE );
 	//
 	//
