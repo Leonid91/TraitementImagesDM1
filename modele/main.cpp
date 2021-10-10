@@ -137,7 +137,7 @@ void customVerify()
 	// Y
 	for (size_t i = 0; i < solListOfPositionsY.size(); i++)
 	{
-		
+
 		if (abs(fragListOfPositionsY[i] - solListOfPositionsY[i]) <= dY)
 		{
 			std::cout << "Le fragment de position Y = " << solListOfPositionsY[i] << " est bien localisé " << std::endl;
@@ -165,46 +165,62 @@ void customVerify()
 	}
 	std::cout << std::endl;
 
-	double surfaceOk = 0;
-
-	// Surface totale des bien positionnés
-	for (size_t i = 0; i < fragListOfPositionsX.size(); i++)
+	vector<double> sizeAllFrag;
+	int nbFrag = 327;
+	for (size_t i = 0; i < nbFrag; i++)
 	{
-		surfaceOk += fragListOfPositionsX[i] * fragListOfPositionsY[i];
-	}
-	
-	k = 1; // reset 
+		int selectedFragId = i;
+		Mat fragIn = imread("../../frag_eroded/frag_eroded_" + selectedFragId + ".png", IMREAD_GRAYSCALE);
 
-	fstream notOnImageFile;
-	string notOnImageLine;
-	std::vector<int> listOfSurface;
+		for (int y = 0; y < fragIn.rows; ++y)
+		{
+			for (int x = 0; x < fragIn.cols; ++x)
+			{
 
-	notOnImageFile.open("../../fragments_s.txt", ios::in);
-
-	while (getline(notOnImageFile, notOnImageLine))
-	{
-		listOfSurface.push_back(stoi(notOnImageLine));
+			}
+		}
 	}
 
-	// Surface des élements bien positionnés pas sur la fresque
+	// double surfaceOk = 0;
 
-	double surfaceNotOnImage = 0;
-	for (size_t i = 0; i < listOfSurface.size(); i++)
-	{
-		surfaceNotOnImage += listOfSurface[i];
-	}
+	// // Surface totale des bien positionnés
+	// for (size_t i = 0; i < fragListOfPositionsX.size(); i++)
+	// {
+	// 	surfaceOk += fragListOfPositionsX[i] * fragListOfPositionsY[i];
+	// }
 
-	double surfaceAllFrag = surfaceNotOnImage; // plus ceux qui sont dans la fresque que j'ajoute dans la boucle
-	for (size_t i = 0; i < fragListOfPositionsX.size(); i++)
-	{
-		surfaceAllFrag += fragListOfPositionsX[i]*fragListOfPositionsY[i];
-	}
+	// k = 1; // reset
 
-	double precision = (surfaceOk - surfaceNotOnImage) / surfaceAllFrag;
+	// fstream notOnImageFile;
+	// string notOnImageLine;
+	// std::vector<int> listOfSurface;
 
-	std::cout << std::endl;
-	std::cout << "La précision de la localisation p = ( " << surfaceOk << " - " << surfaceNotOnImage << ") / " << surfaceAllFrag  << " = " << precision << std::endl;
-	std::cout << std::endl;
+	// notOnImageFile.open("../../fragments_s.txt", ios::in);
+
+	// while (getline(notOnImageFile, notOnImageLine))
+	// {
+	// 	listOfSurface.push_back(stoi(notOnImageLine));
+	// }
+
+	// // Surface des élements bien positionnés pas sur la fresque
+
+	// double surfaceNotOnImage = 0;
+	// for (size_t i = 0; i < listOfSurface.size(); i++)
+	// {
+	// 	surfaceNotOnImage += listOfSurface[i];
+	// }
+
+	// double surfaceAllFrag = surfaceNotOnImage; // plus ceux qui sont dans la fresque que j'ajoute dans la boucle
+	// for (size_t i = 0; i < fragListOfPositionsX.size(); i++)
+	// {
+	// 	surfaceAllFrag += fragListOfPositionsX[i]*fragListOfPositionsY[i];
+	// }
+
+	// double precision = (surfaceOk - surfaceNotOnImage) / surfaceAllFrag;
+
+	// std::cout << std::endl;
+	// std::cout << "La précision de la localisation p = ( " << surfaceOk << " - " << surfaceNotOnImage << ") / " << surfaceAllFrag  << " = " << precision << std::endl;
+	// std::cout << std::endl;
 }
 
 int main(int argc, char **argv)
