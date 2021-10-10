@@ -66,7 +66,7 @@ void customVerify()
 	// }
 
 	solutionFile.open("../../solutions.txt", ios::in);
-	// k = 1; // reset
+	k = 1; // reset
 
 	while (getline(solutionFile, solutionLine))
 	{
@@ -106,23 +106,30 @@ void customVerify()
 	std::cout << std::endl;
 	std::cout << "QUESTION 2" << std::endl;
 
-	std::vector<int> deltaX;
-	std::vector<int> deltaY;
-	std::vector<int> deltaRot;
+	std::vector<int> coordIsOkX;
+	std::vector<int> coordIsOkY;
+	// std::vector<int> rotIsOk;
 
-	int dX, dY, dRot = 1;
+	int dX, dY, dRot;
+	dX = 1;
+	dY = 1;
+	dRot = 1;
+
+	// J'itère sur les coord. du fichier de solution en considerant qu'il pourra être plus petit
+	// que le fichier de référence
 
 	// X
 	for (size_t i = 0; i < solListOfPositionsX.size(); i++)
 	{
-		// deltaX.push_back(fragListOfPositionsX[i] - solListOfPositionsX[i]);
-		if (abs(fragListOfPositionsX[i] - solListOfPositionsX[i] < dX))
+		coordIsOkX.push_back(fragListOfPositionsX[i] - solListOfPositionsX[i]);
+		if (abs(fragListOfPositionsX[i] - solListOfPositionsX[i]) <= dX)
 		{
-			std::cout << "Le fragment de position X = " << solListOfPositionsX[i] << " est bien localisé " << std::endl;
+			std::cout << "Le fragment de position X = " << solListOfPositionsX[i] << " est bien localisé, avec la différence de : " << abs(fragListOfPositionsX[i] - solListOfPositionsX[i]) << " pour dx = " << dX << std::endl;
+			coordIsOkX.push_back(fragListOfPositionsX[i] - solListOfPositionsX[i]);
 		}
 		else
 		{
-			std::cout << "Le fragment de position X = " << solListOfPositionsX[i] << " est mal localisé " << std::endl;
+			std::cout << "Le fragment de position X = " << solListOfPositionsX[i] << " est mal localisé, avec la différence de : " << abs(fragListOfPositionsX[i] - solListOfPositionsX[i]) << std::endl;
 		}
 	}
 	std::cout << std::endl;
@@ -130,10 +137,11 @@ void customVerify()
 	// Y
 	for (size_t i = 0; i < solListOfPositionsY.size(); i++)
 	{
-		// deltaY.push_back(fragListOfPositionsY[i] - solListOfPositionsY[i]);
-		if (abs(fragListOfPositionsY[i] - solListOfPositionsY[i] < dX))
+		
+		if (abs(fragListOfPositionsY[i] - solListOfPositionsY[i]) <= dY)
 		{
 			std::cout << "Le fragment de position Y = " << solListOfPositionsY[i] << " est bien localisé " << std::endl;
+			coordIsOkY.push_back(fragListOfPositionsY[i] - solListOfPositionsY[i]);
 		}
 		else
 		{
@@ -146,7 +154,7 @@ void customVerify()
 	for (size_t i = 0; i < solListOfRotations.size(); i++)
 	{
 		// deltaRot.push_back(fragListOfRotations[i] - solListOfRotations[i]);
-		if (abs(fragListOfRotations[i] - solListOfRotations[i] < dX))
+		if (abs(fragListOfRotations[i] - solListOfRotations[i]) <= dRot)
 		{
 			std::cout << "Le fragment de rotation = " << solListOfRotations[i] << " est bien localisé " << std::endl;
 		}
@@ -156,6 +164,26 @@ void customVerify()
 		}
 	}
 	std::cout << std::endl;
+
+	double surfaceOk = 0;
+
+	// Surface totale des bien positionnés
+	for (size_t i = 0; i < fragListOfPositionsX.size(); i++)
+	{
+		surfaceOk += fragListOfPositionsX[i] * fragListOfPositionsY[i];
+	}
+	
+	k = 1; // reset 
+
+	fstream notOnImageFile;
+	string notOnImageLine;
+	std::vector<int> notOnImageListOfPositionsX;
+	std::vector<int> notOnImageListOfPositionsY;
+	std::vector<int> notOnImageListOfRotations;
+
+
+
+
 }
 
 int main(int argc, char **argv)
