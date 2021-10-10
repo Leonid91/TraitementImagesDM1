@@ -13,14 +13,18 @@ using namespace cv;
 
 int main(int argc, char** argv){
 
-	Mat imageIn = imread( "../../Michelangelo_ThecreationofAdam_1707x775.jpg", IMREAD_GRAYSCALE );
+	Mat imageIn = imread( "../../Michelangelo_ThecreationofAdam_1707x775.jpg", IMREAD_UNCHANGED ); //Pour dimensions de l'image finale
+	Mat fragIn = imread("../../frag_eroded/frag_eroded_0.png", IMREAD_UNCHANGED); //Pour la profondeur de l'image finale
+	//Mat imageOut = Mat::zeros(Size(imageIn.cols, imageIn.rows), fragIn.depth()); //Ne marche pas car en nuances de gris
+	Mat imageOut = imageIn.clone(); //Copie de l'image originale
+	imageOut = Scalar(255,255,255); //On la remplie de blanc
 
 	fstream fragmentFile;
 	string line;
 	std::vector<int> listOfPositionsX;
 	std::vector<int> listOfPositionsY;
 	std::vector<int> listOfRotations;
-	int k = 1; //Compteur principal des listes
+	int k = 0; //Compteur principal des listes
 
 	string ext = ".png";
 
@@ -54,24 +58,20 @@ int main(int argc, char** argv){
 	//Vérification des vecteurs
 	//A commenter pour ne pas polluer l'affichage
 	for(int i=0; i<listOfRotations.size();i++){
-		std::cout << "[" << listOfPositionsX[i] << ", " << listOfPositionsY[i] << "], " << listOfRotations[i] << std::endl;
+		std::cout << i << " [" << listOfPositionsX[i] << ", " << listOfPositionsY[i] << "], " << listOfRotations[i] << std::endl;
 	}
 
-	//Création de l'image de sortie
-	Mat imageOut = Mat::zeros(Size(imageIn.cols, imageIn.rows), imageIn.depth());
-
 	//Traitement
-	int frag_eroded_cpt = 0; //Nombre de frag d'images traités
 	// for(int i=0; i<listOfRotations.size();i++){
-	for(int i=0; i<2;i++){ //On test juste avec quelques fragments
+	for(int i=0; i<5;i++){ //On test juste avec quelques fragments
 		if(listOfPositionsX[i] != -1){
-			string imgToLoad = "../../frag_eroded/frag_eroded_" + std::to_string(frag_eroded_cpt) + ext;
-			Mat frag = imread(imgToLoad, IMREAD_COLOR);
-			frag_eroded_cpt++;
+			Mat frag = imread("../../frag_eroded/frag_eroded_" + std::to_string(i) + ext, IMREAD_COLOR);
+			imwrite("../../beforeRotation.png", frag);
 
 			Mat fragRotated;
 			Point2f centre((frag.cols-1)/2.0, (frag.rows-1)/2.0);
 			Mat rotationMatrix = getRotationMatrix2D(centre, listOfRotations[i], 1.0); //Matrice de rotation
+			std::cout << "Image " << i << " rotation : " << listOfRotations[i] << std::endl;
 
 			//Pour éviter de rogner pendant la rotation
 			//Rect2f bbox = RotatedRect(Point2f(), frag.size(), listOfRotations[i]).boundingRect2f();
@@ -83,7 +83,16 @@ int main(int argc, char** argv){
 			warpAffine(frag, fragRotated, rotationMatrix, frag.size());
 			imwrite("../../afterRotation.png", fragRotated);
 
-			//Ensuite il faut appliquer la translation à l'image et l'insérer dans la matrice mère
+
+			fragRotated.copyTo(imageOut(Rect(listOfPositionsX[i], listOfPositionsY[i], fragRotated.cols, fragRotated.rows)));
+			std::cout << "Fragment " << std::to_string(i) << " copié." << std::endl;
+
+			//Comparer les channels des 2 imgs
+			//std::cout<< fragRotated.channels() << std::endl;
+			//std::cout << imageOut.channels() << std::endl;
+
+		} else {
+			std::cout << "Fragment " << std::to_string(i) << " ignoré." << std::endl;
 		}
 	}
 
@@ -91,19 +100,6 @@ int main(int argc, char** argv){
 	//imshow( "Display window", imageOut);
 
 	fragmentFile.close();
-
-	// Mat imageIn = imread( argv[1], IMREAD_GRAYSCALE );
-	//
-	//
-	// if(! imageIn.data )                              // Check for invalid input
-	//   	{
-	//       	cout <<  "Could not open or find the image" << std::endl ;
-	//       	return -1;
-	//  	}
-
-	//imshow( "Display window", imageIn );
-	//waitKey(0);
-
 
 	return 0;
 }
