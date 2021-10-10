@@ -13,12 +13,16 @@ using namespace cv;
 
 int main(int argc, char** argv){
 
+	Mat originalImage = imread( "../../Michelangelo_ThecreationofAdam_1707x775.jpg", IMREAD_GRAYSCALE );
+
 	fstream fragmentFile;
 	string line;
 	std::vector<int> listOfPositionsX;
 	std::vector<int> listOfPositionsY;
 	std::vector<int> listOfRotations;
 	int k = 1; //Compteur principal des listes
+
+	string ext = ".png";
 
 	fragmentFile.open("../../fragments.txt",ios::in);
 
@@ -48,12 +52,13 @@ int main(int argc, char** argv){
 	}
 
 	//Vérification des vecteurs
+	//A commenter pour ne pas polluer l'affichage
 	for(int i=0; i<listOfRotations.size();i++){
-		//A commenter pour ne pas polluer l'affichage
-		//std::cout << "[" << listOfPositionsX[i] << ", " << listOfPositionsY[i] << "], " << listOfRotations[i] << std::endl;
+		std::cout << "[" << listOfPositionsX[i] << ", " << listOfPositionsY[i] << "], " << listOfRotations[i] << std::endl;
 	}
 
-	string ext = ".png";
+	//Création de l'image cible
+	Mat out = Mat::zeros(Size(originalImage.cols, originalImage.rows), originalImage.depth());
 
 	//Traitement
 	int frag_eroded_cpt = 0; //Nombre de frag d'images traités
@@ -67,7 +72,7 @@ int main(int argc, char** argv){
 			Mat fragRotated = getRotationMatrix2D(centre, listOfRotations[i], 1.0);
 
 			//Exporter en png pour tester la rotation
-			//Ensuite il faut appliquer la translation à l'image et l'insérer dans la matrice mère		
+			//Ensuite il faut appliquer la translation à l'image et l'insérer dans la matrice mère
 		}
 	}
 
