@@ -18,6 +18,10 @@ int main(int argc, char** argv){
 	//Mat imageOut = Mat::zeros(Size(imageIn.cols, imageIn.rows), fragIn.depth()); //Ne marche pas car en nuances de gris
 	Mat imageOut = imageIn.clone(); //Copie de l'image originale
 	imageOut = Scalar(255,255,255); //On la remplie de blanc
+	//On créer un channel alpha pour l'image de sortie pour gérer la transparence
+	Mat newImageOut(imageOut.size(), CV_MAKE_TYPE(imageOut.depth(), 4));
+	int from_to[] = { 0,0, 1,1, 2,2, -1,3 };
+	mixChannels(&imageOut,1,&newImageOut,1,from_to,4);
 
 	fstream fragmentFile;
 	string line;
@@ -57,15 +61,15 @@ int main(int argc, char** argv){
 
 	//Vérification des vecteurs
 	//A commenter pour ne pas polluer l'affichage
-	for(int i=0; i<listOfRotations.size();i++){
-		std::cout << i << " [" << listOfPositionsX[i] << ", " << listOfPositionsY[i] << "], " << listOfRotations[i] << std::endl;
-	}
+	//for(int i=0; i<listOfRotations.size();i++){
+	//	std::cout << i << " [" << listOfPositionsX[i] << ", " << listOfPositionsY[i] << "], " << listOfRotations[i] << std::endl;
+	//}
 
 	//Traitement
 	// for(int i=0; i<listOfRotations.size();i++){
-	for(int i=0; i<5;i++){ //On test juste avec quelques fragments
+	for(int i=0; i<12;i++){ //On test juste avec quelques fragments
 		if(listOfPositionsX[i] != -1){
-			Mat frag = imread("../../frag_eroded/frag_eroded_" + std::to_string(i) + ext, IMREAD_COLOR);
+			Mat frag = imread("../../frag_eroded/frag_eroded_" + std::to_string(i) + ext, IMREAD_UNCHANGED);
 			imwrite("../../beforeRotation.png", frag);
 
 			Mat fragRotated;
@@ -83,21 +87,37 @@ int main(int argc, char** argv){
 			warpAffine(frag, fragRotated, rotationMatrix, frag.size());
 			imwrite("../../afterRotation.png", fragRotated);
 
-
-			fragRotated.copyTo(imageOut(Rect(listOfPositionsX[i], listOfPositionsY[i], fragRotated.cols, fragRotated.rows)));
+			fragRotated.copyTo(newImageOut(Rect(listOfPositionsX[i], listOfPositionsY[i], fragRotated.cols, fragRotated.rows)));
+			//addWeighted(newImageOut(Rect(listOfPositionsX[i], listOfPositionsY[i], fragRotated.cols, fragRotated.rows)), 0.8, fragRotated, 0.2, 0.0, newImageOut);
 			std::cout << "Fragment " << std::to_string(i) << " copié." << std::endl;
 
-			//Comparer les channels des 2 imgs
+			//On retire le fond noir après chaque copie
+			Mat input_bgra;
+			cvtColor(newImageOut, input_bgra, COLOR_BGR2BGRA);
+
+			for (int y = 0; y < input_bgra.rows; ++y)
+			for (int x = 0; x < input_bgra.cols; ++x)
+			{
+				Vec4b & pixel = input_bgra.at<cv::Vec4b>(y, x);
+				if (pixel[0] == 0 && pixel[1] == 0 && pixel[2] == 0)
+				{
+					pixel[3] = 1;
+				}
+			}
+
+			//cv::imwrite("../../transparentWhite.png", input_bgra);
+
+			//Comparer les channels des 2 imgs*
+			//std::cout<< frag.channels() << std::endl;
 			//std::cout<< fragRotated.channels() << std::endl;
-			//std::cout << imageOut.channels() << std::endl;
+			//std::cout << newImageOut.channels() << std::endl;
 
 		} else {
 			std::cout << "Fragment " << std::to_string(i) << " ignoré." << std::endl;
 		}
 	}
 
-	imwrite("../../out.jpg", imageOut);
-	//imshow( "Display window", imageOut);
+	imwrite("../../out.png", newImageOut);
 
 	fragmentFile.close();
 
