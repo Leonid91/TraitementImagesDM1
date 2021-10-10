@@ -167,18 +167,33 @@ void customVerify()
 
 	vector<double> sizeAllFrag;
 	int nbFrag = 327;
-	for (size_t i = 0; i < nbFrag; i++)
+	for (int i = 0; i < nbFrag; i++)
 	{
-		int selectedFragId = i;
-		Mat fragIn = imread("../../frag_eroded/frag_eroded_" + selectedFragId + ".png", IMREAD_GRAYSCALE);
+		std::string fragLink = "../../frag_eroded/frag_eroded_" + std::to_string(i) + ".png";
+		Mat fragIn = imread(fragLink, IMREAD_GRAYSCALE);
 
-		for (int y = 0; y < fragIn.rows; ++y)
-		{
-			for (int x = 0; x < fragIn.cols; ++x)
-			{
+		vector<vector<Point>> contours;
+		// findContours(fragIn, contours);
 
-			}
-		}
+		// for (unsigned int i = 0; i < contours.size(); i++)
+		// {
+		// 	std::cout << "# of contour points: " << contours[i].size() << std::endl;
+
+		// 	for (unsigned int j = 0; j < contours[i].size(); j++)
+		// 	{
+		// 		std::cout << "Point(x,y)=" << contours[i][j] << std::endl;
+		// 	}
+
+		// 	std::cout << " Area: " << contourArea(contours[i]) << std::endl;
+		// }
+
+		// for (int y = 0; y < fragIn.rows; ++y)
+		// {
+		// 	for (int x = 0; x < fragIn.cols; ++x)
+		// 	{
+		// 		std::cout << << std::endl;
+		// 	}
+		// }
 	}
 
 	// double surfaceOk = 0;
