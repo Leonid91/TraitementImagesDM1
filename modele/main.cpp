@@ -98,11 +98,11 @@ void customVerify()
 
 	// // Vérification des vecteurs
 	// // A commenter pour ne pas polluer l'affichage
-	std::cout << "QUESTION 2" << std::endl;
-	for (int i = 0; i < solListOfRotations.size(); i++)
-	{
-		std::cout << "[" << solListOfPositionsX[i] << ", " << solListOfPositionsY[i] << "], " << solListOfRotations[i] << std::endl;
-	}
+	// std::cout << "QUESTION 2" << std::endl;
+	// for (int i = 0; i < solListOfRotations.size(); i++)
+	// {
+	// 	std::cout << "[" << solListOfPositionsX[i] << ", " << solListOfPositionsY[i] << "], " << solListOfRotations[i] << std::endl;
+	// }
 	std::cout << std::endl;
 	std::cout << "QUESTION 2" << std::endl;
 
@@ -177,47 +177,21 @@ void customVerify()
 
 	fstream notOnImageFile;
 	string notOnImageLine;
-	std::vector<int> notOnImageListOfPositionsX;
-	std::vector<int> notOnImageListOfPositionsY;
-	std::vector<int> notOnImageListOfRotations;
+	std::vector<int> listOfSurface;
 
-	solutionFile.open("../../fragments_s.txt", ios::in);
-	k = 1; // reset
+	notOnImageFile.open("../../fragments_s.txt", ios::in);
 
 	while (getline(notOnImageFile, notOnImageLine))
 	{
-		string arr[4];
-		int i = 0;
-
-		//Insère les 4 valeurs de la ligne dans un tableau de string
-		stringstream ssin(notOnImageLine);
-		while (ssin.good() && i < 4)
-		{
-			ssin >> arr[i];
-			++i;
-		}
-
-		while (stoi(arr[0]) > k)
-		{ //Si l'index de l'image est supérieur au compteur, on rempli les vecteurs par des valeurs par défaut
-			notOnImageListOfPositionsX.push_back(-1);
-			notOnImageListOfPositionsY.push_back(-1);
-			notOnImageListOfRotations.push_back(0);
-			k++;
-		}
-
-		//Sinon on insère les valeurs qu'on vient de parser
-		notOnImageListOfPositionsX.push_back(stoi(arr[1]));
-		notOnImageListOfPositionsY.push_back(stoi(arr[2]));
-		notOnImageListOfRotations.push_back(stoi(arr[3]));
-		k++;
+		listOfSurface.push_back(stoi(notOnImageLine));
 	}
 
 	// Surface des élements bien positionnés pas sur la fresque
 
 	double surfaceNotOnImage = 0;
-	for (size_t i = 0; i < notOnImageListOfPositionsX.size(); i++)
+	for (size_t i = 0; i < listOfSurface.size(); i++)
 	{
-		surfaceNotOnImage += notOnImageListOfPositionsX[i] * notOnImageListOfPositionsY[i];
+		surfaceNotOnImage += listOfSurface[i];
 	}
 
 	double surfaceAllFrag = surfaceNotOnImage; // plus ceux qui sont dans la fresque que j'ajoute dans la boucle
@@ -229,7 +203,7 @@ void customVerify()
 	double precision = (surfaceOk - surfaceNotOnImage) / surfaceAllFrag;
 
 	std::cout << std::endl;
-	std::cout << "La précision de la localisation p = " << precision << std::endl;
+	std::cout << "La précision de la localisation p = ( " << surfaceOk << " - " << surfaceNotOnImage << ") / " << surfaceAllFrag  << " = " << precision << std::endl;
 	std::cout << std::endl;
 }
 
