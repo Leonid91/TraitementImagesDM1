@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <stdlib.h>
 
 using namespace std;
 using namespace cv;
@@ -104,6 +105,57 @@ void customVerify()
 	}
 	std::cout << std::endl;
 	std::cout << "QUESTION 2" << std::endl;
+
+	std::vector<int> deltaX;
+	std::vector<int> deltaY;
+	std::vector<int> deltaRot;
+
+	int dX, dY, dRot = 1;
+
+	// X
+	for (size_t i = 0; i < solListOfPositionsX.size(); i++)
+	{
+		// deltaX.push_back(fragListOfPositionsX[i] - solListOfPositionsX[i]);
+		if (abs(fragListOfPositionsX[i] - solListOfPositionsX[i] < dX))
+		{
+			std::cout << "Le fragment de position X = " << solListOfPositionsX[i] << " est bien localisé " << std::endl;
+		}
+		else
+		{
+			std::cout << "Le fragment de position X = " << solListOfPositionsX[i] << " est mal localisé " << std::endl;
+		}
+	}
+	std::cout << std::endl;
+
+	// Y
+	for (size_t i = 0; i < solListOfPositionsY.size(); i++)
+	{
+		// deltaY.push_back(fragListOfPositionsY[i] - solListOfPositionsY[i]);
+		if (abs(fragListOfPositionsY[i] - solListOfPositionsY[i] < dX))
+		{
+			std::cout << "Le fragment de position Y = " << solListOfPositionsY[i] << " est bien localisé " << std::endl;
+		}
+		else
+		{
+			std::cout << "Le fragment de position Y = " << solListOfPositionsY[i] << " est mal localisé " << std::endl;
+		}
+	}
+	std::cout << std::endl;
+
+	// Rot
+	for (size_t i = 0; i < solListOfRotations.size(); i++)
+	{
+		// deltaRot.push_back(fragListOfRotations[i] - solListOfRotations[i]);
+		if (abs(fragListOfRotations[i] - solListOfRotations[i] < dX))
+		{
+			std::cout << "Le fragment de rotation = " << solListOfRotations[i] << " est bien localisé " << std::endl;
+		}
+		else
+		{
+			std::cout << "Le fragment de rotation = " << solListOfRotations[i] << " est mal localisé " << std::endl;
+		}
+	}
+	std::cout << std::endl;
 }
 
 int main(int argc, char **argv)
